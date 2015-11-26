@@ -38,6 +38,9 @@ public class MainServer extends HttpServlet {
     public void init() throws ServletException {
         File f = new File(Const.BASE_PATH);
         f.mkdirs();
+
+        Shell shell = new Shell("chmod 777 " + classLoader.getResource(Const.PAGE_SPEED_BIN).getFile());
+        shell.runCmd();
     }
 
     @Override
@@ -79,14 +82,14 @@ public class MainServer extends HttpServlet {
 
         fileUtil.writeHar(reqTask.getHar());
 
-        Shell shell = new Shell("chmod 777 " + classLoader.getResource(Const.PAGE_SPEED_BIN).getFile());
-        shell.runCmd();
+        // Shell shell = new Shell("chmod 777 " + classLoader.getResource(Const.PAGE_SPEED_BIN).getFile());
+        // shell.runCmd();
 
         String cmd = classLoader.getResource(Const.PAGE_SPEED_BIN).getFile() + "  " + "-input_file=" + harFile + "  "
                 + "-output_format=formatted_json" + "  " + "-output_file=" + resultFile;
 
         System.out.println(cmd);
-        shell = new Shell(cmd);
+        Shell shell = new Shell(cmd);
         shell.runCmd();
 
         String resultStr = fileUtil.getJson();
