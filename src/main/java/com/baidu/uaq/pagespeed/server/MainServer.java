@@ -93,6 +93,7 @@ public class MainServer extends HttpServlet {
         shell.runCmd();
 
         String resultStr = fileUtil.getJson();
+        System.out.println(reqTask.getId());
         // pw.print(resultStr);
         if (resultStr != null) {
             redis.addKV(reqTask.getId() + Const.STORE_SUFFIX, resultStr);
